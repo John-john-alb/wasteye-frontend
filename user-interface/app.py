@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image, ImageDraw
-from utils import analyze_image  # Import the analyze_image function from utils
+#from utils import analyze_image  # Import the analyze_image function from utils
 
 # Set up the page config (including title and layout).
 st.set_page_config(
