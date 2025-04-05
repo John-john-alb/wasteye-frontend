@@ -1,8 +1,5 @@
 import os
 import requests
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # API endpoint for Wasteye
 WASTEYE_API_URL = "https://wasteye-docker-243765311449.us-central1.run.app/predict"
