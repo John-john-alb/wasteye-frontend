@@ -1,5 +1,5 @@
 import streamlit as st
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 from utils import analyze_image  # Import the analyze_image function from utils
 from pathlib import Path
 
@@ -100,11 +100,15 @@ with col2:
                     x1, y1, x2, y2 = box
                     # Draw bounding box
                     draw.rectangle([(x1, y1), (x2, y2)], outline="lime", width=3)
-                    # Write the label above the box
+                    font = ImageFont.load_default()
                     text = f"{label}"
-                    text_size = draw.textsize(text)
-                    draw.rectangle([(x1, y1 - text_size[1]), (x1 + text_size[0], y1)], fill="lime")
-                    draw.text((x1, y1 - text_size[1]), text, fill="black")
+                    text_bbox = draw.textbbox((x1, y1), text, font=font)
+                    text_width = text_bbox[2] - text_bbox[0]
+                    text_height = text_bbox[3] - text_bbox[1]
+
+                    # Draw background inside the box (top-left corner)
+                    draw.rectangle([(x1, y1), (x1 + text_width, y1 + text_height)], fill="lime")
+                    draw.text((x1, y1), text, fill="black", font=font)
 
             st.image(result_image, caption="Detection Result", use_container_width=True)
     else:
