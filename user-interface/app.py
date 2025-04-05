@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image, ImageDraw
 from utils import analyze_image  # Import the analyze_image function from utils
+from pathlib import Path
 
 # Set up the page config (including title and layout).
 st.set_page_config(
@@ -9,7 +10,8 @@ st.set_page_config(
 )
 
 # --- Sidebar Configuration ---
-st.sidebar.image("wasteyeai_branding.png", use_container_width=True)
+image_path = Path(__file__).parent / "wasteyeai_branding.png"
+st.sidebar.image(image_path, use_container_width=True)
 st.sidebar.title("Image/Webcam Config")
 
 # Let the user pick a source (only Image or Webcam).
@@ -36,7 +38,7 @@ elif source_option == "Webcam":
 detect_button = st.sidebar.button("Detect Objects")
 
 # --- Main Page Layout ---
-st.title("WASTEYE AI - Waste Classification using YOLOv8")
+st.title("WASTEYE AI - Waste Classification using YOLOv10")
 st.write("Use the sidebar to upload an image or capture one from your webcam.")
 
 # Create two columns for displaying images side by side
