@@ -8,7 +8,7 @@ from utils import analyze_image_from_url  # Import the analyze_image function fr
 st.set_page_config(page_title="Wasteye AI", layout="wide")
 
 # Sidebar
-st.sidebar.image("wasteyeai_branding.png", use_column_width=True)
+st.sidebar.image("wasteyeai_branding.png", use_container_width=True)
 st.sidebar.title("Image from URL")
 
 image_url = st.sidebar.text_input("Enter image URL")
