@@ -1,11 +1,14 @@
 import os
 import requests
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # API endpoint for Wasteye
 WASTEYE_API_URL = "https://wasteye-docker-243765311449.us-central1.run.app/predict"
+
+def analyze_image(image):
+    files = {"file": ("image.jpg", image_bytes, "image/jpeg")}
+
+files = {"file": ("image.jpg", image_bytes, "image/jpeg")}
+response = requests.post("https://wasteye-243765311449.europe-west1.run.app", files=files)
 
 def analyze_image_from_url(image_url):
     """

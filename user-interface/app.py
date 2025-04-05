@@ -8,7 +8,7 @@ from utils import analyze_image_from_url  # Import the analyze_image function fr
 st.set_page_config(page_title="Wasteye AI", layout="wide")
 
 # Sidebar
-st.sidebar.image("wasteyeai_branding.png", use_column_width=True)
+st.sidebar.image("wasteyeai_branding.png", use_container_width=True)
 st.sidebar.title("Image from URL")
 
 image_url = st.sidebar.text_input("Enter image URL")
@@ -29,7 +29,7 @@ with col1:
             response = requests.get(image_url)
             response.raise_for_status()
             image_to_process = Image.open(BytesIO(response.content))
-            st.image(image_to_process, caption="Image from URL", use_column_width=True)
+            st.image(image_to_process, caption="Image from URL", use_container_width=True)
         except Exception as e:
             st.error(f"Failed to load image from URL: {e}")
     else:
@@ -60,6 +60,6 @@ with col2:
                     draw.rectangle([(x1, y1 - text_size[1]), (x1 + text_size[0], y1)], fill="lime")
                     draw.text((x1, y1 - text_size[1]), text, fill="black")
 
-            st.image(result_image, caption="Detection Result", use_column_width=True)
+            st.image(result_image, caption="Detection Result", use_container_width=True)
     else:
         st.write("Detection results will appear here once you provide an image URL and click 'Detect Objects'.")
