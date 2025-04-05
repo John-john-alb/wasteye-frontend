@@ -2,31 +2,22 @@ import os
 import requests
 
 # API endpoint for Wasteye
-WASTEYE_API_URL = "https://wasteye-docker-243765311449.us-central1.run.app/predict"
+WASTEYE_API_URL = "https://wasteye-243765311449.europe-west1.run.app/predict"
 
-def analyze_image(image):
-    files = {"file": ("image.jpg", image_bytes, "image/jpeg")}
-
-files = {"file": ("image.jpg", image_bytes, "image/jpeg")}
-response = requests.post("https://wasteye-243765311449.europe-west1.run.app", files=files)
-
-def analyze_image_from_url(image_url):
+def analyze_image(file_like):
     """
-    Sends the image URL directly to the Wasteye API (if the API supports URL-based input).
+    Analyzes an image file using the Wasteye API.
+
+    Args:
+        file_like (file-like object): An image file object (like Streamlit's UploadedFile).
+
+    Returns:
+        dict: Parsed JSON response with detections.
     """
-    response = requests.get(f"{WASTEYE_API_URL}?image_url={image_url}")
+    files = {"file": ("uploaded_image.jpg", file_like, "image/jpeg")}
+    response = requests.post(WASTEYE_API_URL, files=files)
 
     if response.status_code != 200:
         raise RuntimeError(f"Wasteye API request failed with status {response.status_code}: {response.text}")
 
-    data = response.json()
-    detections = data.get("results", [{}])[0].get("detections", [])
-
-    formatted_detections = []
-    for det in detections:
-        formatted_detections.append({
-            "label": det.get("class", "UNKNOWN").upper(),
-            "box": det.get("bbox", [])
-        })
-
-    return {"detections": formatted_detections}
+    return response.json()
