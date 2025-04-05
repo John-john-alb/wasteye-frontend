@@ -3,12 +3,14 @@ from io import BytesIO
 import streamlit as st
 from PIL import Image, ImageDraw
 from utils import analyze_image_from_url  # Import the analyze_image function from utils
+from pathlib import Path
 
 # --- Streamlit UI ---
 st.set_page_config(page_title="Wasteye AI", layout="wide")
 
 # Sidebar
-st.sidebar.image("wasteyeai_branding.png", use_container_width=True)
+image_path = Path(__file__).parent / "wasteyeai_branding.png"
+st.sidebar.image(image_path, use_container_width=True)
 st.sidebar.title("Image from URL")
 
 image_url = st.sidebar.text_input("Enter image URL")
